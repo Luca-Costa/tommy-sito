@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommy | Pannello di Controllo & Configurazione</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Outfit:wght@400;600;700;900&family=Playfair+Display:wght@600;800&family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #09090b;
+            color: #f4f4f5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #18181b; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+        input, textarea, select {
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #f4f4f5;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #648BC8;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(100, 139, 200, 0.2);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <header class="h-16 bg-[#121215] border-b border-[#27272a] px-6 flex items-center justify-between flex-shrink-0 z-20">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-400 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                T
+            </div>
+            <div>
+                <h1 class="font-bold text-sm tracking-wide text-white">Tommy Site Admin</h1>
+                <p class="text-xs text-zinc-400">Pannello Gestione Contenuti & Stile</p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-3">
+            <label class="cursor-pointer bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all border border-zinc-700">
+                <i class="fas fa-upload"></i> Carica JSON
+                <input type="file" id="import-json" accept=".json" class="hidden">
+            </label>
+
+            <button id="btn-save-local" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all border border-zinc-700">
+                <i class="fas fa-save"></i> Salva in Locale
+            </button>
+
+            <button id="btn-export-json" class="bg-[#648BC8] hover:bg-blue-600 text-white px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/20 transition-all transform hover:scale-105">
+                <i class="fas fa-download"></i> Scarica site-data.json
+            </button>
+
+            <a href="index.html" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
+                <i class="fas fa-external-link-alt"></i> Apri Sito
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Workspace: Split View (Sidebar Controls + Live Preview) -->
+    <div class="flex-grow flex overflow-hidden">
+        
+        <!-- Left Sidebar Form (Scrollable) -->
+        <aside class="w-full lg:w-[480px] bg-[#121215] border-r border-[#27272a] overflow-y-auto p-6 space-y-8 flex-shrink-0">
+            
+            <!-- Section 1: Stile & Tipografia (:root CSS Variables) -->
+            <div class="bg-[#18181b] p-5 rounded-2xl border border-[#27272a] space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <span class="w-8 h-8 rounded-lg bg-blue-500/10 text-[#648BC8] flex items-center justify-center font-bold text-sm">🎨</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-white">Stile & Tipografia (CSS Variables)</h2>
+                        <p class="text-xs text-zinc-400">Colori e font globali applicati tramite :root</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Colore Brand (--tommy-blue)</label>
+                        <div class="flex items-center gap-3">
+                            <input type="color" id="theme-color" class="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-0 p-0">
+                            <input type="text" id="theme-color-hex" class="w-full px-3 py-2 rounded-xl text-xs uppercase" placeholder="#648BC8">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Carattere Titoli (--heading-font)</label>
+                        <select id="theme-heading-font" class="w-full px-3 py-2 rounded-xl text-xs">
+                            <option value="'Impact', 'Arial Black', sans-serif">Impact (Audace / Biglietto da visita)</option>
+                            <option value="'Bebas Neue', cursive">Bebas Neue (Titoli compatti)</option>
+                            <option value="'Montserrat', sans-serif">Montserrat (Moderno)</option>
+                            <option value="'Outfit', sans-serif">Outfit (Minimal Apple)</option>
+                            <option value="'Space Grotesk', sans-serif">Space Grotesk (Tech)</option>
+                            <option value="'Syne', sans-serif">Syne (Design ricercato)</option>
+                            <option value="'Playfair Display', serif">Playfair Display (Elegante)</option>
+                            <option value="'Poppins', sans-serif">Poppins (Morbido)</option>
+                            <option value="'Inter', sans-serif">Inter (Pulito)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Carattere Corpo Testo (--body-font)</label>
+                        <select id="theme-body-font" class="w-full px-3 py-2 rounded-xl text-xs">
+                            <option value="'Inter', sans-serif">Inter (Consigliato)</option>
+                            <option value="'Outfit', sans-serif">Outfit</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
+                            <option value="'Poppins', sans-serif">Poppins</option>
+                            <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Sezione Hero -->
+            <div class="bg-[#18181b] p-5 rounded-2xl border border-[#27272a] space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-sm">🚀</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-white">Sezione Hero</h2>
+                        <p class="text-xs text-zinc-400">Intestazione principale e messaggio di apertura</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Titolo Riga 1</label>
+                            <input type="text" id="hero-title-top-input" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Titolo Riga 2</label>
+                            <input type="text" id="hero-title-bottom-input" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Sottotitolo</label>
+                        <input type="text" id="hero-subtitle-input" class="w-full px-3 py-2 rounded-xl text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Descrizione 1</label>
+                        <textarea id="hero-desc1-input" rows="3" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Descrizione 2 (Riquadro evidenziato)</label>
+                        <textarea id="hero-desc2-input" rows="2" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Testo Bottone CTA</label>
+                        <input type="text" id="hero-cta-input" class="w-full px-3 py-2 rounded-xl text-xs">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Il Metodo (4 Card) -->
+            <div class="bg-[#18181b] p-5 rounded-2xl border border-[#27272a] space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm">📚</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-white">Il Metodo</h2>
+                        <p class="text-xs text-zinc-400">4 Card informative sul metodo didattico</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Titolo Sezione</label>
+                        <input type="text" id="metodo-title-input" class="w-full px-3 py-2 rounded-xl text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-300 mb-1">Sottotitolo Sezione</label>
+                        <textarea id="metodo-subtitle-input" rows="2" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                    </div>
+
+                    <div id="metodo-cards-editor" class="space-y-3 pt-2">
+                        <!-- Generato dinamicamente in JS -->
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Section: Sezione Recensioni -->
+            <div class="bg-[#18181b] p-5 rounded-2xl border border-[#27272a] space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <span class="w-8 h-8 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center font-bold text-sm">⭐</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-white">Sezione Recensioni</h2>
+                        <p class="text-xs text-zinc-400">Testimonianze degli studenti</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Recensione 1 -->
+                    <div class="bg-black/50 p-4 rounded-xl border border-zinc-800/50 space-y-3">
+                        <label class="block text-xs font-semibold text-zinc-300">Recensione 1</label>
+                        <div>
+                            <label class="block text-[10px] uppercase text-zinc-500 mb-1">Testo</label>
+                            <textarea id="input-rec-1-testo" rows="2" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-zinc-500 mb-1">Autore</label>
+                            <input type="text" id="input-rec-1-autore" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                    </div>
+
+                    <!-- Recensione 2 -->
+                    <div class="bg-black/50 p-4 rounded-xl border border-zinc-800/50 space-y-3">
+                        <label class="block text-xs font-semibold text-zinc-300">Recensione 2</label>
+                        <div>
+                            <label class="block text-[10px] uppercase text-zinc-500 mb-1">Testo</label>
+                            <textarea id="input-rec-2-testo" rows="2" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-zinc-500 mb-1">Autore</label>
+                            <input type="text" id="input-rec-2-autore" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                    </div>
+
+                    <!-- Recensione 3 -->
+                    <div class="bg-black/50 p-4 rounded-xl border border-zinc-800/50 space-y-3">
+                        <label class="block text-xs font-semibold text-zinc-300">Recensione 3</label>
+                        <div>
+                            <label class="block text-[10px] uppercase text-zinc-500 mb-1">Testo</label>
+                            <textarea id="input-rec-3-testo" rows="2" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-zinc-500 mb-1">Autore</label>
+                            <input type="text" id="input-rec-3-autore" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Tariffe & Pacchetti -->
+            <div class="bg-[#18181b] p-5 rounded-2xl border border-[#27272a] space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <span class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-sm">💰</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-white">Tariffe e Pacchetti</h2>
+                        <p class="text-xs text-zinc-400">Prezzi delle lezioni e pacchetti a lungo termine</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div id="tariffe-tiers-editor" class="space-y-3">
+                        <!-- Generato dinamicamente in JS -->
+                    </div>
+
+                    <div class="border-t border-zinc-800 pt-3 space-y-2">
+                        <label class="block text-xs font-semibold text-zinc-200">Box Pacchetti a Lungo Termine</label>
+                        <div>
+                            <label class="block text-[11px] text-zinc-400 mb-1">Titolo</label>
+                            <input type="text" id="package-title-input" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-zinc-400 mb-1">Descrizione</label>
+                            <textarea id="package-text-input" rows="3" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Contatti & Prenotazione -->
+            <div class="bg-[#18181b] p-5 rounded-2xl border border-[#27272a] space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <span class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">📱</span>
+                    <div>
+                        <h2 class="font-bold text-sm text-white">Contatti & Prenotazione</h2>
+                        <p class="text-xs text-zinc-400">WhatsApp, Instagram e passaggi guida</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">WhatsApp (Testo)</label>
+                            <input type="text" id="contact-wa-text" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">WhatsApp (Link wa.me)</label>
+                            <input type="text" id="contact-wa-url" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Link Evento Calendly (per Google Calendar)</label>
+                            <input type="text" id="contact-calendly-url" class="w-full px-3 py-2 rounded-xl text-xs text-blue-400" placeholder="https://calendly.com/tuo-username/ripetizioni-matematica">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Instagram (Username)</label>
+                            <input type="text" id="contact-ig-text" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Instagram (Link)</label>
+                            <input type="text" id="contact-ig-url" class="w-full px-3 py-2 rounded-xl text-xs">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Right Pane: Real-time Live Preview (iFrame) -->
+        <main class="hidden lg:flex flex-1 flex-col bg-[#09090b]">
+            <div class="h-10 bg-[#141417] border-b border-[#27272a] px-4 flex items-center justify-between text-xs text-zinc-400">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Anteprima in tempo reale</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="preview-desktop" class="hover:text-white px-2 py-1 rounded bg-zinc-800 text-white"><i class="fas fa-desktop mr-1"></i> Desktop</button>
+                    <button id="preview-mobile" class="hover:text-white px-2 py-1 rounded text-zinc-400"><i class="fas fa-mobile-alt mr-1"></i> Mobile</button>
+                    <button id="btn-reload-preview" class="hover:text-white px-2 py-1 rounded text-zinc-400" title="Ricarica anteprima"><i class="fas fa-redo"></i></button>
+                </div>
+            </div>
+            <div class="flex-grow flex items-center justify-center p-4 bg-[#09090b] overflow-hidden">
+                <div id="preview-wrapper" class="w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-zinc-800 transition-all duration-300">
+                    <iframe id="live-preview-frame" src="index.html" class="w-full h-full bg-black border-0"></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        let currentData = null;
+
+        // Default Data Template
+        const defaultData = {
+            theme: {
+                accentColor: "#648BC8",
+                headingFont: "'Impact', 'Arial Black', sans-serif",
+                bodyFont: "'Inter', sans-serif"
+            },
+            hero: {
+                titleTop: "Matematica",
+                titleBottom: "Recupero & Metodo",
+                subtitle: "Percorsi su misura con Tommy.",
+                description1: "Stanco delle solite lezioni pesanti, noiose e dell'ansia da prestazione?<br>Sono uno studente all'ultimo anno: <strong class=\"text-white font-medium\">parliamo la stessa lingua</strong>. Nessuna barriera gerarchica, nessun prof accademico in giacca e cravatta.",
+                description2: "Il mio obiettivo? Risolvere la tua crisi con la matematica e farti prendere il voto che ti serve, in un clima totalmente rilassato.",
+                ctaText: "RISOLVIAMO LA CRISI"
+            },
+            metodo: {
+                title: "Obiettivo: Recupero e Autonomia",
+                subtitle: "Un approccio estremamente pratico e orientato ai risultati.<br>Perfetto equilibrio tra serietà organizzativa e tono informale.",
+                cards: [
+                    { icon: "fas fa-layer-group", title: "Metodo Analitico", text: "Scomponiamo i problemi complessi in passaggi semplici e replicabili. Niente più 'fogli bianchi' davanti a un esercizio. Impari a ragionare step-by-step." },
+                    { icon: "fas fa-project-diagram", title: "Schemi ad Alto Impatto", text: "Ti fornisco sintesi grafiche e mappe concettuali create da me per memorizzare le formule e le procedure in metà tempo. Addio teoria infinita, focus sulla pratica." },
+                    { icon: "fas fa-bullseye", title: "Strategia di Verifica", text: "Simulazioni mirate e gestione dell'ansia da prestazione. Non studiamo solo per 'sapere', studiamo con strategia per prendere il voto che ti serve." },
+                    { icon: "fas fa-handshake", title: "Peer Tutoring", text: "Basta con l'imbarazzo di fare domande banali. Grazie all'empatia generazionale creiamo un clima di studio informale e rilassato, abbattendo la demotivazione." }
+                ]
+            },
+            tariffe: {
+                title: "Tariffe e Pacchetti",
+                subtitle: "Offerta economica trasparente e accessibile. La continuità è il vero segreto per ottenere risultati concreti.",
+                tiers: [
+                    { name: "Tariffa Base", duration: "1 ORA", price: "12€", discount: "", note: "Ideale per un dubbio specifico o una spiegazione rapida prima di un test.", isFeatured: false },
+                    { name: "Sessione Doppia", duration: "2 ORE", price: "20€", discount: "(Risparmi 4€)", note: "Il formato perfetto per affrontare un nuovo argomento e fare molta pratica guidata assieme.", isFeatured: true, badge: "Più Scelto" },
+                    { name: "Full Immersion", duration: "3 ORE", price: "26€", discount: "(Risparmi 10€)", note: "Sessione intensiva pre-verifica per ripassare tutto e mettersi alla prova.", isFeatured: false }
+                ],
+                package: {
+                    title: "Pacchetti Lezioni",
+                    text: "Vuoi garantire un recupero solido e continuo? Opta per soluzioni mensili o periodiche a prezzo agevolato. <strong>Scegliendo pacchetti da 10-12 lezioni otterrai un forte risparmio sul totale</strong> e la garanzia del mio supporto continuativo.",
+                    cta: "Richiedi Info"
+                }
+            },
+            prenota: {
+                title: "Iniziamo Subito",
+                subtitle: "Scegli la modalità (Online o In Presenza), decidi l'orario e prenota in totale autonomia. Non aspettare l'ultimo minuto per recuperare!",
+                whatsapp: "351 580 6885",
+                whatsappUrl: "https://wa.me/393515806885",
+                instagram: "@thomass.bosii",
+                instagramUrl: "https://instagram.com/thomass.bosii",
+                steps: [
+                    "Scegli giorno e ora nel calendario.",
+                    "Inserisci i tuoi dati e l'argomento critico.",
+                    "L'evento si aggiunge in automatico a Google Calendar.",
+                    "Ci vediamo su Meet (link automatico) o di persona!"
+                ]
+            }
+        };
+
+        // Inizializza i dati
+        async function loadInitialData() {
+            // Controlla prima localStorage
+            const local = localStorage.getItem("tommy_site_data");
+            if (local) {
+                try {
+                    currentData = JSON.parse(local);
+                    populateForm();
+                    return;
+                } catch(e) {}
+            }
+
+            // Fetch da site-data.json
+            try {
+                const res = await fetch("site-data.json");
+                if (res.ok) {
+                    currentData = await res.json();
+                } else {
+                    currentData = defaultData;
+                }
+            } catch(e) {
+                currentData = defaultData;
+            }
+            populateForm();
+        }
+
+        // Popola i campi del form con i dati attuali
+        function populateForm() {
+            if (!currentData) return;
+
+            // Theme
+            document.getElementById("theme-color").value = currentData.theme?.accentColor || "#648BC8";
+            document.getElementById("theme-color-hex").value = currentData.theme?.accentColor || "#648BC8";
+            document.getElementById("theme-heading-font").value = currentData.theme?.headingFont || "'Impact', 'Arial Black', sans-serif";
+            document.getElementById("theme-body-font").value = currentData.theme?.bodyFont || "'Inter', sans-serif";
+
+            // Hero
+            document.getElementById("hero-title-top-input").value = currentData.hero?.titleTop || "";
+            document.getElementById("hero-title-bottom-input").value = currentData.hero?.titleBottom || "";
+            document.getElementById("hero-subtitle-input").value = currentData.hero?.subtitle || "";
+            document.getElementById("hero-desc1-input").value = currentData.hero?.description1 || "";
+            document.getElementById("hero-desc2-input").value = currentData.hero?.description2 || "";
+            document.getElementById("hero-cta-input").value = currentData.hero?.ctaText || "";
+
+            // Metodo
+            document.getElementById("metodo-title-input").value = currentData.metodo?.title || "";
+            document.getElementById("metodo-subtitle-input").value = currentData.metodo?.subtitle || "";
+            
+            // Metodo Cards
+            const cardsContainer = document.getElementById("metodo-cards-editor");
+            cardsContainer.innerHTML = (currentData.metodo?.cards || []).map((card, idx) => `
+                <div class="bg-zinc-900/60 p-3 rounded-xl border border-zinc-800 space-y-2">
+                    <span class="text-[11px] font-bold text-emerald-400 uppercase">Card ${idx + 1}</span>
+                    <input type="text" class="card-title-input w-full px-2.5 py-1.5 rounded-lg text-xs" data-idx="${idx}" value="${card.title}" placeholder="Titolo card">
+                    <textarea class="card-text-input w-full px-2.5 py-1.5 rounded-lg text-xs" data-idx="${idx}" rows="2" placeholder="Descrizione">${card.text}</textarea>
+                </div>
+            `).join("");
+
+            // Tariffe Tiers
+            document.getElementById("metodo-title-input").value = currentData.metodo?.title || "";
+            const tiersContainer = document.getElementById("tariffe-tiers-editor");
+            tiersContainer.innerHTML = (currentData.tariffe?.tiers || []).map((tier, idx) => `
+                <div class="bg-zinc-900/60 p-3 rounded-xl border border-zinc-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-amber-400 uppercase">${tier.name}</span>
+                        <input type="text" class="tier-price-input w-20 px-2 py-1 rounded-lg text-xs font-bold text-right" data-idx="${idx}" value="${tier.price}" placeholder="Prezzo">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" class="tier-name-input px-2 py-1 rounded-lg text-xs" data-idx="${idx}" value="${tier.name}" placeholder="Nome">
+                        <input type="text" class="tier-dur-input px-2 py-1 rounded-lg text-xs" data-idx="${idx}" value="${tier.duration}" placeholder="Durata">
+                    </div>
+                    <input type="text" class="tier-disc-input w-full px-2 py-1 rounded-lg text-xs text-blue-400" data-idx="${idx}" value="${tier.discount || ''}" placeholder="Sconto (es. Risparmi 4€)">
+                    <input type="text" class="tier-note-input w-full px-2 py-1 rounded-lg text-xs" data-idx="${idx}" value="${tier.note}" placeholder="Nota descrittiva">
+                </div>
+            `).join("");
+
+            // Package
+            document.getElementById("package-title-input").value = currentData.tariffe?.package?.title || "";
+            document.getElementById("package-text-input").value = currentData.tariffe?.package?.text || "";
+
+            
+            
+
+            // Contatti
+            document.getElementById("contact-calendly-url").value = currentData.prenota?.calendlyUrl || "";
+            document.getElementById("contact-wa-text").value = currentData.prenota?.whatsapp || "";
+            document.getElementById("contact-wa-url").value = currentData.prenota?.whatsappUrl || "";
+            document.getElementById("contact-ig-text").value = currentData.prenota?.instagram || "";
+            document.getElementById("contact-ig-url").value = currentData.prenota?.instagramUrl || "";
+
+            attachLiveListeners();
+            updateLivePreview();
+        }
+
+        // Raccogli i dati dal form in un oggetto JSON pulito
+        function gatherFormData() {
+            const data = JSON.parse(JSON.stringify(currentData || defaultData));
+
+            // Theme
+            data.theme = {
+                accentColor: document.getElementById("theme-color").value,
+                headingFont: document.getElementById("theme-heading-font").value,
+                bodyFont: document.getElementById("theme-body-font").value
+            };
+
+            // Hero
+            data.hero = {
+                titleTop: document.getElementById("hero-title-top-input").value,
+                titleBottom: document.getElementById("hero-title-bottom-input").value,
+                subtitle: document.getElementById("hero-subtitle-input").value,
+                description1: document.getElementById("hero-desc1-input").value,
+                description2: document.getElementById("hero-desc2-input").value,
+                ctaText: document.getElementById("hero-cta-input").value
+            };
+
+            // Metodo
+            data.metodo.title = document.getElementById("metodo-title-input").value;
+            data.metodo.subtitle = document.getElementById("metodo-subtitle-input").value;
+            document.querySelectorAll(".card-title-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.metodo.cards[idx]) data.metodo.cards[idx].title = input.value;
+            });
+            document.querySelectorAll(".card-text-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.metodo.cards[idx]) data.metodo.cards[idx].text = input.value;
+            });
+
+            // Tariffe
+            document.querySelectorAll(".tier-name-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.tariffe.tiers[idx]) data.tariffe.tiers[idx].name = input.value;
+            });
+            document.querySelectorAll(".tier-price-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.tariffe.tiers[idx]) data.tariffe.tiers[idx].price = input.value;
+            });
+            document.querySelectorAll(".tier-dur-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.tariffe.tiers[idx]) data.tariffe.tiers[idx].duration = input.value;
+            });
+            document.querySelectorAll(".tier-disc-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.tariffe.tiers[idx]) data.tariffe.tiers[idx].discount = input.value;
+            });
+            document.querySelectorAll(".tier-note-input").forEach(input => {
+                const idx = input.getAttribute("data-idx");
+                if (data.tariffe.tiers[idx]) data.tariffe.tiers[idx].note = input.value;
+            });
+
+            data.tariffe.package.title = document.getElementById("package-title-input").value;
+            data.tariffe.package.text = document.getElementById("package-text-input").value;
+
+            
+            
+
+            // Contatti
+            data.prenota.calendlyUrl = document.getElementById("contact-calendly-url").value;
+            data.prenota.whatsapp = document.getElementById("contact-wa-text").value;
+            data.prenota.whatsappUrl = document.getElementById("contact-wa-url").value;
+            data.prenota.instagram = document.getElementById("contact-ig-text").value;
+            data.prenota.instagramUrl = document.getElementById("contact-ig-url").value;
+
+            currentData = data;
+            return data;
+        }
+
+        // Invia aggiornamenti in tempo reale all'iframe
+        function updateLivePreview() {
+            const data = gatherFormData();
+            localStorage.setItem("tommy_site_data", JSON.stringify(data));
+            
+            const iframe = document.getElementById("live-preview-frame");
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.location.reload();
+            }
+        }
+
+        function attachLiveListeners() {
+
+            const recFields = [
+                {id: 'input-rec-1-testo', key: 'rec1Testo'}, {id: 'input-rec-1-autore', key: 'rec1Autore'},
+                {id: 'input-rec-2-testo', key: 'rec2Testo'}, {id: 'input-rec-2-autore', key: 'rec2Autore'},
+                {id: 'input-rec-3-testo', key: 'rec3Testo'}, {id: 'input-rec-3-autore', key: 'rec3Autore'}
+            ];
+            recFields.forEach(field => {
+                const el = document.getElementById(field.id);
+                if (el) {
+                    el.addEventListener('input', function() {
+                        if (!currentData.recensioni) currentData.recensioni = {};
+                        currentData.recensioni[field.key] = this.value;
+                        updateLivePreview(); // Mantenuto il nome corretto della tua funzione
+                    });
+                }
+            });
+
+            document.querySelectorAll("input, textarea, select").forEach(el => {
+                el.oninput = debounce(() => updateLivePreview(), 300);
+            });
+
+            // Sincronizza input color con text color
+            document.getElementById("theme-color").oninput = (e) => {
+                document.getElementById("theme-color-hex").value = e.target.value;
+                updateLivePreview();
+            };
+            document.getElementById("theme-color-hex").oninput = (e) => {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                    document.getElementById("theme-color").value = e.target.value;
+                    updateLivePreview();
+                }
+            };
+        }
+
+        // Salva in localStorage
+        document.getElementById("btn-save-local").addEventListener("click", () => {
+            const data = gatherFormData();
+            localStorage.setItem("tommy_site_data", JSON.stringify(data));
+            showToast("✅ Modifiche salvate in locale! Ora sono visibili su index.html");
+        });
+
+        // Esporta file JSON
+        document.getElementById("btn-export-json").addEventListener("click", () => {
+            const data = gatherFormData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "site-data.json";
+            a.click();
+            showToast("📥 File site-data.json scaricato! Sostituiscilo nella cartella del sito.");
+        });
+
+        // Carica JSON esterno
+        document.getElementById("import-json").addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    currentData = JSON.parse(event.target.result);
+                    populateForm();
+                    showToast("📂 File JSON importato con successo!");
+                } catch(err) {
+                    alert("Errore nel file JSON caricato.");
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // Modalità Anteprima Desktop / Mobile
+        const wrapper = document.getElementById("preview-wrapper");
+        document.getElementById("preview-desktop").addEventListener("click", function() {
+            wrapper.style.maxWidth = "100%";
+            this.classList.add("bg-zinc-800", "text-white");
+            document.getElementById("preview-mobile").classList.remove("bg-zinc-800", "text-white");
+        });
+
+        document.getElementById("preview-mobile").addEventListener("click", function() {
+            wrapper.style.maxWidth = "390px";
+            this.classList.add("bg-zinc-800", "text-white");
+            document.getElementById("preview-desktop").classList.remove("bg-zinc-800", "text-white");
+        });
+
+        document.getElementById("btn-reload-preview").addEventListener("click", () => {
+            document.getElementById("live-preview-frame").contentWindow.location.reload();
+        });
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        function showToast(msg) {
+            const toast = document.createElement("div");
+            toast.className = "fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3 rounded-xl text-xs font-bold shadow-2xl z-50 transition-all";
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        window.onload = loadInitialData;
+    </script>
+</body>
+</html>

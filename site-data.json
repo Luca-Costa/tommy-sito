@@ -1,0 +1,92 @@
+{
+  "theme": {
+    "accentColor": "#648BC8",
+    "headingFont": "'Impact', 'Arial Black', sans-serif",
+    "bodyFont": "'Inter', sans-serif"
+  },
+  "hero": {
+    "titleTop": "Matematica",
+    "titleBottom": "Recupero & Metodo",
+    "subtitle": "Percorsi su misura con Tommy.",
+    "description1": "Stanco delle solite lezioni pesanti, noiose e dell'ansia da prestazione?<br>Sono uno studente all'ultimo anno: <strong class=\"text-white font-medium\">parliamo la stessa lingua</strong>. Nessuna barriera gerarchica, nessun prof accademico in giacca e cravatta.",
+    "description2": "Il mio obiettivo? Risolvere la tua crisi con la matematica e farti prendere il voto che ti serve, in un clima totalmente rilassato.",
+    "ctaText": "RISOLVIAMO LA CRISI"
+  },
+  "metodo": {
+    "title": "Obiettivo: Recupero e Autonomia",
+    "subtitle": "Un approccio estremamente pratico e orientato ai risultati.<br>Perfetto equilibrio tra serietà organizzativa e tono informale.",
+    "cards": [
+      {
+        "icon": "fas fa-layer-group",
+        "title": "Metodo Analitico",
+        "text": "Scomponiamo i problemi complessi in passaggi semplici e replicabili. Niente più 'fogli bianchi' davanti a un esercizio. Impari a ragionare step-by-step."
+      },
+      {
+        "icon": "fas fa-project-diagram",
+        "title": "Schemi ad Alto Impatto",
+        "text": "Ti fornisco sintesi grafiche e mappe concettuali create da me per memorizzare le formule e le procedure in metà tempo. Addio teoria infinita, focus sulla pratica."
+      },
+      {
+        "icon": "fas fa-bullseye",
+        "title": "Strategia di Verifica",
+        "text": "Simulazioni mirate e gestione dell'ansia da prestazione. Non studiamo solo per 'sapere', studiamo con strategia per prendere il voto che ti serve."
+      },
+      {
+        "icon": "fas fa-handshake",
+        "title": "Peer Tutoring",
+        "text": "Basta con l'imbarazzo di fare domande banali. Grazie all'empatia generazionale creiamo un clima di studio informale e rilassato, abbattendo la demotivazione."
+      }
+    ]
+  },
+  "tariffe": {
+    "title": "Tariffe e Pacchetti",
+    "subtitle": "Offerta economica trasparente e accessibile. La continuità è il vero segreto per ottenere risultati concreti.",
+    "tiers": [
+      {
+        "name": "Tariffa Base",
+        "duration": "1 ORA",
+        "price": "12€",
+        "discount": "",
+        "note": "Ideale per un dubbio specifico o una spiegazione rapida prima di un test.",
+        "isFeatured": false
+      },
+      {
+        "name": "Sessione Doppia",
+        "duration": "2 ORE",
+        "price": "20€",
+        "discount": "(Risparmi 4€)",
+        "note": "Il formato perfetto per affrontare un nuovo argomento e fare molta pratica guidata assieme.",
+        "isFeatured": true,
+        "badge": "Più Scelto"
+      },
+      {
+        "name": "Full Immersion",
+        "duration": "3 ORE",
+        "price": "26€",
+        "discount": "(Risparmi 10€)",
+        "note": "Sessione intensiva pre-verifica per ripassare tutto e mettersi alla prova.",
+        "isFeatured": false
+      }
+    ],
+    "package": {
+      "title": "Pacchetti Lezioni",
+      "text": "Vuoi garantire un recupero solido e continuo? Opta per soluzioni mensili o periodiche a prezzo agevolato. <strong>Scegliendo pacchetti da 10-12 lezioni otterrai un forte risparmio sul totale</strong> e la garanzia del mio supporto continuativo.",
+      "cta": "Richiedi Info"
+    }
+  },
+  "prenota": {
+    "title": "Iniziamo Subito",
+    "subtitle": "Scegli la modalità (Online o In Presenza), decidi l'orario e prenota in totale autonomia. Non aspettare l'ultimo minuto per recuperare!",
+    "calendlyUrl": "https://calendly.com/thomass-bosii/ripetizioni-matematica",
+    "whatsapp": "351 580 6885",
+    "whatsappUrl": "https://wa.me/393515806885",
+    "instagram": "@thomass.bosii",
+    "instagramUrl": "https://instagram.com/thomass.bosii",
+    "steps": [
+      "Scegli giorno e ora nel calendario.",
+      "Inserisci i tuoi dati e l'argomento critico.",
+      "L'evento si aggiunge in automatico a Google Calendar.",
+      "Ci vediamo su Meet (link automatico) o di persona!"
+    ]
+  }
+}
