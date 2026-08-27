@@ -69,24 +69,24 @@
       }
     ],
     "package": {
-      "title": "Pacchetti Lezioni",
-      "text": "Vuoi garantire un recupero solido e continuo? Opta per soluzioni mensili o periodiche a prezzo agevolato. <strong>Scegliendo pacchetti da 10-12 lezioni otterrai un forte risparmio sul totale</strong> e la garanzia del mio supporto continuativo.",
+      "title": "",
+      "text": "",
       "cta": "Richiedi Info"
     }
   },
   "prenota": {
     "title": "Iniziamo Subito",
     "subtitle": "Scegli la modalità (Online o In Presenza), decidi l'orario e prenota in totale autonomia. Non aspettare l'ultimo minuto per recuperare!",
-    "calendlyUrl": "https://calendly.com/thomas-bosi108/30min",
-    "whatsapp": "351 580 6885",
-    "whatsappUrl": "https://wa.me/393515806885",
-    "instagram": "@thomass.bosii",
-    "instagramUrl": "https://instagram.com/thomass.bosii",
+    "whatsapp": "",
+    "whatsappUrl": "",
+    "instagram": "",
+    "instagramUrl": "",
     "steps": [
       "Scegli giorno e ora nel calendario.",
       "Inserisci i tuoi dati e l'argomento critico.",
       "L'evento si aggiunge in automatico a Google Calendar.",
       "Ci vediamo su Meet (link automatico) o di persona!"
-    ]
+    ],
+    "calendlyUrl": "https://calendly.com/thomas-bosi108/30min"
   }
 }
