@@ -313,7 +313,7 @@
                 <div class="lg:col-span-7 text-center lg:text-left">
                     <h1 class="text-4xl md:text-6xl lg:text-[7rem] mb-6 leading-[0.9] uppercase tracking-tighter" data-aos="fade-up" data-aos-duration="1000">
                         <span id="hero-title-top" class="text-zinc-100 block">Matematica</span>
-                        <span id="hero-title-bottom" class="text-zinc-500 block mt-2 text-3xl md:text-5xl lg:text-[6rem]">Recupero & Metodo</span>
+                        <span id="hero-title-bottom" class="text-zinc-300 block mt-2 text-3xl md:text-5xl lg:text-[6rem]">Recupero & Metodo</span>
                     </h1>
                     <p id="hero-subtitle" class="text-xl lg:text-2xl text-tommy-blue mb-10 font-medium tracking-wide" data-aos="fade-up" data-aos-delay="200">
                         Percorsi su misura con Tommy.
@@ -967,12 +967,12 @@
                 
                 // Recensioni
                 if (data.recensioni) {
-                    if (document.getElementById('rec-1-testo') && data.recensioni.rec1Testo) document.getElementById('rec-1-testo').innerText = data.recensioni.rec1Testo;
-                    if (document.getElementById('rec-1-autore') && data.recensioni.rec1Autore) document.getElementById('rec-1-autore').innerText = data.recensioni.rec1Autore;
-                    if (document.getElementById('rec-2-testo') && data.recensioni.rec2Testo) document.getElementById('rec-2-testo').innerText = data.recensioni.rec2Testo;
-                    if (document.getElementById('rec-2-autore') && data.recensioni.rec2Autore) document.getElementById('rec-2-autore').innerText = data.recensioni.rec2Autore;
-                    if (document.getElementById('rec-3-testo') && data.recensioni.rec3Testo) document.getElementById('rec-3-testo').innerText = data.recensioni.rec3Testo;
-                    if (document.getElementById('rec-3-autore') && data.recensioni.rec3Autore) document.getElementById('rec-3-autore').innerText = data.recensioni.rec3Autore;
+                    if (data.recensioni.rec1Testo) document.getElementById('rec-1-testo').innerText = data.recensioni.rec1Testo;
+                    if (data.recensioni.rec1Autore) document.getElementById('rec-1-autore').innerText = data.recensioni.rec1Autore;
+                    if (data.recensioni.rec2Testo) document.getElementById('rec-2-testo').innerText = data.recensioni.rec2Testo;
+                    if (data.recensioni.rec2Autore) document.getElementById('rec-2-autore').innerText = data.recensioni.rec2Autore;
+                    if (data.recensioni.rec3Testo) document.getElementById('rec-3-testo').innerText = data.recensioni.rec3Testo;
+                    if (data.recensioni.rec3Autore) document.getElementById('rec-3-autore').innerText = data.recensioni.rec3Autore;
                 }
 
                 // Tariffe
