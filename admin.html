@@ -323,18 +323,7 @@
                         <!-- Generato dinamicamente in JS -->
                     </div>
 
-                    <div class="border-t border-zinc-800 pt-3 space-y-2">
-                        <label class="block text-xs font-semibold text-zinc-200">Box Pacchetti a Lungo Termine</label>
-                        <div>
-                            <label class="block text-[11px] text-zinc-400 mb-1">Titolo</label>
-                            <input type="text" id="package-title-input" class="w-full px-3 py-2 rounded-xl text-xs">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-zinc-400 mb-1">Descrizione</label>
-                            <textarea id="package-text-input" rows="3" class="w-full px-3 py-2 rounded-xl text-xs"></textarea>
-                        </div>
                     </div>
-                </div>
             </div>
 
             <!-- Section 5: Contatti & Prenotazione -->
@@ -555,9 +544,7 @@
                 </div>
             `).join("");
 
-            // Package
-            document.getElementById("package-title-input").value = currentData.tariffe?.package?.title || "";
-            document.getElementById("package-text-input").value = currentData.tariffe?.package?.text || "";
+            
 
             
             
@@ -622,8 +609,7 @@
                 if (data.tariffe.tiers[idx]) data.tariffe.tiers[idx].note = input.value;
             });
 
-            data.tariffe.package.title = document.getElementById("package-title-input").value;
-            data.tariffe.package.text = document.getElementById("package-text-input").value;
+            
 
             
             
