@@ -525,31 +525,18 @@
 
                     <div class="bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] p-4 md:p-10 lg:p-12 rounded-[1.5rem] md:rounded-[2rem] hover-lift flex flex-col justify-between h-full relative group" data-aos="fade-up" data-aos-delay="300">
                         <div>
-                            <h3 class="text-lg md:text-3xl font-heading tracking-widest text-white uppercase mb-2">Full Immersion</h3>
-                            <p class="text-zinc-500 font-semibold tracking-wider text-sm mb-5 md:mb-10">3 ORE</p>
-                            <div class="text-4xl md:text-7xl font-heading text-white mb-4">26€</div>
-                            <p class="text-[#25D366] text-xs font-bold uppercase tracking-widest mb-5 md:mb-10">(Risparmi 10€)</p>
-                            <p class="text-zinc-400 text-sm font-light leading-relaxed mb-6 md:mb-12">Sessione intensiva pre-verifica per ripassare tutto e mettersi alla prova.</p>
+                            <h3 class="text-lg md:text-3xl font-heading tracking-widest text-white uppercase mb-2">Percorso Su Misura</h3>
+                            <p class="text-zinc-500 font-semibold tracking-wider text-sm mb-5 md:mb-10">LUNGO TERMINE</p>
+                            <div class="text-3xl md:text-5xl font-heading text-white mb-4">DEDICATO</div>
+                            <p class="text-[#25D366] text-xs font-bold uppercase tracking-widest mb-5 md:mb-10">TARIFFA AGEVOLATA</p>
+                            <p class="text-zinc-400 text-sm font-light leading-relaxed mb-6 md:mb-12">Analizziamo i tuoi obiettivi e strutturiamo un piano di studio continuativo con un pacchetto lezioni a prezzo vantaggioso.</p>
                         </div>
-                        <a href="#prenota" class="block w-full py-3 md:py-4 text-center border border-white/10 hover:border-white/30 hover:bg-white/5 text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs" data-track-pricing="3_ore_26eur">PRENOTA</a>
+                        <a href="#prenota" class="block w-full py-3 md:py-4 text-center border border-white/10 hover:border-white/30 hover:bg-white/5 text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs" data-track-pricing="percorso_su_misura">CONTATTAMI</a>
                     </div>
 
                 </div>
 
-                <div class="mt-24 bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] rounded-[2.5rem] p-6 md:p-10 lg:p-14 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between text-left hover-lift" data-aos="fade-up">
-                    <div class="mb-5 md:mb-10 md:mb-0 md:mr-12 flex-1">
-                        <div class="flex items-center gap-6 mb-6">
-                            <div class="w-14 h-14 bg-white/[0.03] rounded-2xl flex items-center justify-center flex-shrink-0 border border-white/[0.05]">
-                                <i class="fas fa-gift text-2xl text-tommy-blue"></i>
-                            </div>
-                            <h3 id="package-title" class="text-lg md:text-3xl font-heading text-white uppercase tracking-widest">Pacchetti Lezioni</h3>
-                        </div>
-                        <p id="package-text" class="text-zinc-400 text-base md:text-lg font-light leading-relaxed">Vuoi garantire un recupero solido e continuo? Opta per soluzioni mensili o periodiche a prezzo agevolato. <strong class="text-white font-medium">Scegliendo pacchetti da 10-12 lezioni otterrai un forte risparmio sul totale</strong> e la garanzia del mio supporto continuativo.</p>
-                    </div>
-                    <a href="https://wa.me/393515806885?text=Ciao%20Tommy,%20vorrei%20informazioni%20sui%20pacchetti%20lezioni%20a%20lungo%20termine!" target="_blank" rel="noopener noreferrer" id="package-cta" class="flex-shrink-0 bg-white text-black hover:bg-zinc-200 px-10 py-4 md:py-5 rounded-full font-bold text-sm uppercase tracking-[0.2em] transition-all shadow-xl text-center" data-track-cta="richiesta_pacchetto_whatsapp">
-                        Richiedi Info
-                    </a>
-                </div>
+                
             </div>
         </section>
 
@@ -992,20 +979,16 @@
                                     <div class="${t.isFeatured ? 'relative z-10 text-center' : ''}">
                                         <h3 class="text-lg md:text-3xl font-heading tracking-widest uppercase mb-2 ${t.isFeatured ? 'text-tommy-blue' : 'text-white'}">${t.name}</h3>
                                         <p class="${t.isFeatured ? 'text-zinc-400' : 'text-zinc-500'} font-semibold tracking-wider text-sm mb-5 md:mb-10">${t.duration}</p>
-                                        <div class="${t.isFeatured ? 'text-5xl md:text-8xl leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]' : 'text-4xl md:text-7xl'} font-heading text-white ${t.discount ? 'mb-4' : 'mb-8'}">${t.price}</div>
+                                        <div class="${t.isFeatured ? 'text-5xl md:text-8xl leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]' : (t.price.length > 4 ? 'text-3xl md:text-5xl' : 'text-4xl md:text-7xl')} font-heading text-white ${t.discount ? 'mb-4' : 'mb-8'}">${t.price}</div>
                                         ${t.discount ? `<p class="${t.isFeatured ? 'text-tommy-blue' : 'text-[#25D366]'} text-xs font-bold uppercase tracking-widest mb-5 md:mb-10">${t.discount}</p>` : ''}
                                         <p class="${t.isFeatured ? 'text-zinc-300' : 'text-zinc-400'} text-sm font-light leading-relaxed mb-6 md:mb-12">${t.note}</p>
                                     </div>
-                                    <a href="#prenota" class="block w-full py-${t.isFeatured ? '5 bg-tommy-blue hover:bg-white hover:text-black hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] relative z-10 text-sm' : '4 border border-white/10 hover:border-white/30 hover:bg-white/5 text-xs'} text-center text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all" data-track-pricing="${t.name.toLowerCase().replace(/\s+/g, '_')}">${t.isFeatured ? 'PRENOTA ORA' : 'PRENOTA'}</a>
+                                    <a href="#prenota" class="block w-full py-${t.isFeatured ? '5 bg-tommy-blue hover:bg-white hover:text-black hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] relative z-10 text-sm' : '4 border border-white/10 hover:border-white/30 hover:bg-white/5 text-xs'} text-center text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all" data-track-pricing="${t.name.toLowerCase().replace(/\s+/g, '_')}">${t.isFeatured ? 'PRENOTA ORA' : (t.price.length > 4 ? 'CONTATTAMI' : 'PRENOTA')}</a>
                                 </div>
                             `).join('');
                     }
 
-                    if (data.tariffe.package) {
-                        if (data.tariffe.package.title) document.getElementById('package-title').innerText = data.tariffe.package.title;
-                        if (data.tariffe.package.text) document.getElementById('package-text').innerHTML = data.tariffe.package.text;
-                        if (data.tariffe.package.cta) document.getElementById('package-cta').innerText = data.tariffe.package.cta;
-                    }
+                    
                 }
 
                 // Prenota / Contatti
