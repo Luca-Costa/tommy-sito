@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommy. - Materiale Didattico Prime</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Impact&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tommy-blue': '#648BC8',
+                    },
+                    fontFamily: {
+                        'heading': ['Impact', 'Arial Black', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.3, 0.8, 0.1, 1), box-shadow 0.4s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(100, 139, 200, 0.15);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-tommy-blue selection:text-white bg-[#000000] text-white min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="w-full border-b border-white/[0.05] bg-[#000000]/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <a href="/" class="text-zinc-400 hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors self-start md:self-center flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> Torna al sito
+            </a>
+            
+            <h1 class="font-heading text-2xl md:text-3xl lg:text-4xl uppercase tracking-wide text-center">
+                Materiale Didattico <span class="text-tommy-blue block md:inline md:ml-2">Classi Prime</span>
+            </h1>
+            
+            <div class="hidden md:block w-[150px]"></div> <!-- Spacer per bilanciare il pulsante "Torna al sito" -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <!-- Grid Dispense -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- PDF 1 -->
+                <div class="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[1.5rem] hover-lift flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-wide mb-2 text-white group-hover:text-tommy-blue transition-colors">Insiemi e Logica</h3>
+                        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-8">Rappresentazione degli insiemi, operazioni logiche, quantificatori e connettivi fondamentali.</p>
+                    </div>
+                    <a href="dispensa-1.pdf" download class="block w-full py-3 text-center border border-tommy-blue/50 hover:bg-tommy-blue text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs">
+                        <i class="fas fa-download mr-2"></i> Scarica PDF
+                    </a>
+                </div>
+
+                <!-- PDF 2 -->
+                <div class="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[1.5rem] hover-lift flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-wide mb-2 text-white group-hover:text-tommy-blue transition-colors">Calcolo Letterale</h3>
+                        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-8">Monomi, polinomi, prodotti notevoli (quadrati, cubi di binomio) e regole di scomposizione.</p>
+                    </div>
+                    <a href="dispensa-2.pdf" download class="block w-full py-3 text-center border border-tommy-blue/50 hover:bg-tommy-blue text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs">
+                        <i class="fas fa-download mr-2"></i> Scarica PDF
+                    </a>
+                </div>
+
+                <!-- PDF 3 -->
+                <div class="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[1.5rem] hover-lift flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-wide mb-2 text-white group-hover:text-tommy-blue transition-colors">Equazioni di 1° Grado</h3>
+                        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-8">Principi di equivalenza, risoluzione di equazioni intere, fratte e sistemi associati.</p>
+                    </div>
+                    <a href="dispensa-3.pdf" download class="block w-full py-3 text-center border border-tommy-blue/50 hover:bg-tommy-blue text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs">
+                        <i class="fas fa-download mr-2"></i> Scarica PDF
+                    </a>
+                </div>
+
+                <!-- PDF 4 -->
+                <div class="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[1.5rem] hover-lift flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-wide mb-2 text-white group-hover:text-tommy-blue transition-colors">Disequazioni di 1° Grado</h3>
+                        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-8">Regole di base, rappresentazione grafica degli intervalli, disequazioni fratte e sistemi.</p>
+                    </div>
+                    <a href="dispensa-4.pdf" download class="block w-full py-3 text-center border border-tommy-blue/50 hover:bg-tommy-blue text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs">
+                        <i class="fas fa-download mr-2"></i> Scarica PDF
+                    </a>
+                </div>
+
+                <!-- PDF 5 -->
+                <div class="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[1.5rem] hover-lift flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-wide mb-2 text-white group-hover:text-tommy-blue transition-colors">Geometria Euclidea</h3>
+                        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-8">Assiomi, teoremi fondamentali sui triangoli, criteri di congruenza e parallelismo.</p>
+                    </div>
+                    <a href="dispensa-5.pdf" download class="block w-full py-3 text-center border border-tommy-blue/50 hover:bg-tommy-blue text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs">
+                        <i class="fas fa-download mr-2"></i> Scarica PDF
+                    </a>
+                </div>
+
+                <!-- PDF 6 -->
+                <div class="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[1.5rem] hover-lift flex flex-col justify-between h-full group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold tracking-wide mb-2 text-white group-hover:text-tommy-blue transition-colors">Sistemi Lineari</h3>
+                        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-8">Metodi risolutivi: sostituzione, confronto, riduzione e Cramer. Problemi classici con due incognite.</p>
+                    </div>
+                    <a href="dispensa-6.pdf" download class="block w-full py-3 text-center border border-tommy-blue/50 hover:bg-tommy-blue text-white rounded-full font-bold uppercase tracking-[0.2em] transition-all text-xs">
+                        <i class="fas fa-download mr-2"></i> Scarica PDF
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
